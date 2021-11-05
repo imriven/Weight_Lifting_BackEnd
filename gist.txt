@@ -1,0 +1,8 @@
+docker run --name test-weight-db -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+initialize postgres container
+
+docker container ls
+to see the containers that are running
+
+docker container --help
+brings up helpful commands
