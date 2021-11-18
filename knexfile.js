@@ -1,8 +1,3 @@
-const pgConnection = process.env.DATABASE_HACK_URL || {
-  database: "dummy", //postgres by default
-  user: "dummy", //postgres by default
-  password: "dummy", //blank by default
-};
 
 module.exports = {
   development: {
