@@ -12,10 +12,12 @@ exports.up = function (knex) {
     .createTable("exercise", (tbl) => {
       tbl.increments();
       tbl.string("name", 128).notNullable();
+      tbl.integer("rating").unsigned();
     })
     .createTable("workout", (tbl) => {
       tbl.increments();
-      tbl.string("exercise", 128).notNullable();
+      tbl.string("name", 128).notNullable();
+      tbl.integer("rating").unsigned();
     })
     .createTable("workout_exercise", (tbl) => {
       tbl
@@ -73,7 +75,7 @@ exports.up = function (knex) {
     .createTable("workout_instance", (tbl) => {
       tbl.increments();
       tbl.date("date").notNullable().unsigned();
-      tbl.integer("weight").notNullable().unsigned();
+      tbl.string("notes").notNullable()
       tbl.string("name", 128).notNullable();
       //foreign key
       tbl
@@ -126,11 +128,34 @@ exports.up = function (knex) {
         .references("id")
         .inTable("type");
       tbl.primary(["exercise_id", "type_id"]);
+    })
+    .createTable("program", (tbl) => {
+      tbl.increments();
+      tbl.string("name", 128).notNullable();
+      tbl.string("source", 128).notNullable();
+      tbl.integer("rating").unsigned();
+    })
+    .createTable("program_workout", (tbl) => {
+      tbl
+        .integer("program_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("program");
+      tbl
+        .integer("workout_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("workout");
+      tbl.primary(["program_id", "workout_id"]);
     });
 };
 
 exports.down = function (knex) {
   return knex.schema
+    .dropTableIfExists("program_workout")
+    .dropTableIfExists("program")
     .dropTableIfExists("exercise_type")
     .dropTableIfExists("type")
     .dropTableIfExists("exercise_instance")
