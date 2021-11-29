@@ -76,7 +76,6 @@ exports.up = function (knex) {
       tbl.increments();
       tbl.date("date").notNullable().unsigned();
       tbl.string("notes").notNullable()
-      tbl.string("name", 128).notNullable();
       //foreign key
       tbl
         .integer("workout_id")
@@ -89,7 +88,6 @@ exports.up = function (knex) {
       tbl.increments();
       tbl.date("date").notNullable().unsigned();
       tbl.integer("weight").notNullable().unsigned();
-      tbl.string("name", 128).notNullable();
       tbl.integer("set").notNullable().unsigned();
       //foreign key
       tbl
@@ -98,6 +96,14 @@ exports.up = function (knex) {
         .unsigned()
         .references("id")
         .inTable("workout_instance");
+         //foreign key
+      tbl
+      .integer("exercise_id")
+      .notNullable()
+      .unsigned()
+      .references("id")
+      .inTable("exercise");
+      //foreign key
     })
     .createTable("set", (tbl) => {
       tbl.increments();

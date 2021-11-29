@@ -2,7 +2,8 @@
 module.exports = {
   development: {
     client: "pg",
-    connection: process.env.DATABASE_CONN,
+   // connection: process.env.DATABASE_CONN,
+    
     pool: {
       min: 2,
       max: 10,
